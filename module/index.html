@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat</title>
+  <style>
+    #messages { height: 200px; overflow-y: scroll; border: 1px solid #ccc; margin-bottom: 10px; padding: 5px; }
+    #messageInput { width: 80%; }
+  </style>
+</head>
+<body>
+  <div id="messages"></div>
+  <input type="text" id="messageInput" placeholder="Type a message...">
+  <button onclick="sendMessage()">Send</button>
+
+  <script src="https://unpkg.com/@grpc/grpc-web"></script>
+  <script src="chat_grpc_web_pb.js"></script>
+  <script src="chat_pb.js"></script>
+
+  <script>
+    const { SimpleChatClient } = grpc.web;
+    const { ChatMessage } = proto.chat;
+
+    const target = 'http://localhost:8080';
+    const client = new SimpleChatClient(target);
+
+    const user = prompt("Your Name:");
+
+    const channel = client.chat();
+
+    channel.on('data', function(data) {
+      if (data.getUser() === user) return;
+      const messages = document.getElementById('messages');
+      messages.innerHTML += `<div><strong>${data.getUser()}:</strong> ${data.getText()}</div>`;
+    });
+
+    async function sendMessage() {
+      const messageInput = document.getElementById('messageInput');
+      const message = new ChatMessage();
+      message.setUser(user);
+      message.setText(messageInput.value);
+      channel.write(message);
+      messageInput.value = '';
+    }
+  </script>
+</body>
+</html>
