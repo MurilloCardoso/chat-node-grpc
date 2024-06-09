@@ -21,8 +21,8 @@ async function main() {
     const isOwnMessage = data.getUser() === user;
     if (isOwnMessage) return;
 
-    console.log(`(${data.getUser()} - ${data.getTimeStamp()}): ${data.getText()}`);
-    messagesHistory.push(`(${data.getUser()} - ${data.getTimeStamp()}): ${data.getText()}`);
+    console.log(`(${data.getUser()} - ${data.getTimestamp()}): ${data.getText()}`);
+    messagesHistory.push(`(${data.getUser()} - ${data.getTimestamp()}): ${data.getText()}`);
   });
 
   for (;;) {
@@ -36,7 +36,7 @@ async function main() {
     message.setText(text);  
     let options = { hour: '2-digit', minute: '2-digit', hour12: false };
     const timestamp = new Date().toLocaleString('pt-BR', options);
-    message.setTimeStamp(timestamp);
+    message.setTimestamp(timestamp);
   
 
     if (text.startsWith('/users')) { // Comando para listar usuários online
