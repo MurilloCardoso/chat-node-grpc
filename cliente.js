@@ -27,7 +27,6 @@ async function main() {
 
   for (;;) {
 
-
     const text = await question("Mensagem> ");
     const message = new messages.ChatMessage();
 
