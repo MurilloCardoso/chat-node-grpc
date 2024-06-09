@@ -7,4 +7,5 @@ service SimpleChat {
 message ChatMessage {
   string user = 1;
   string text = 2;
+  string timestamp = 3;
 }

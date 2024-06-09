@@ -1,8 +1,5 @@
-// GENERATED CODE -- DO NOT EDIT!
-
-'use strict';
 var grpc = require('@grpc/grpc-js');
-var chat_pb = require('./chat_pb.js');
+var chat_pb = require('./chat_pb.js'); //importa o módulo gerado a partir do arquivo .proto, que contém definiçoes de mensagens e serviços.
 
 function serialize_ChatMessage(arg) {
   if (!(arg instanceof chat_pb.ChatMessage)) {
